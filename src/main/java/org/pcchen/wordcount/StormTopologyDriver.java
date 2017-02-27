@@ -1,16 +1,27 @@
 package org.pcchen.wordcount;
 
-import backtype.storm.spout.SpoutOutputCollector;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichSpout;
-
-import java.util.Map;
+import backtype.storm.Config;
+import backtype.storm.LocalCluster;
+import backtype.storm.generated.StormTopology;
+import backtype.storm.topology.TopologyBuilder;
 
 /**
  * storm的topology主类
  * Created by ceek on 2017-02-27 11:55.
  */
 public class StormTopologyDriver {
+    public static void main(String[] args) {
+        TopologyBuilder topologyBuilder = new TopologyBuilder();
+        topologyBuilder.setSpout("localFileSpout", new LocalFileSpout());
+        topologyBuilder.setBolt("splitBolt", new SplitBolt()).shuffleGrouping("localFileSpout");
+        topologyBuilder.setBolt("wordCountAndPrintBolt", new WordCountAndPrintBolt()).shuffleGrouping("splitBolt");
 
+        StormTopology topology = topologyBuilder.createTopology();
+
+        Config config = new Config();
+//        config.setNumWorkers(2);
+        //集群本地提交模式
+        LocalCluster localcluster = new LocalCluster();
+        localcluster.submitTopology("wordcount1", config, topology);
+    }
 }

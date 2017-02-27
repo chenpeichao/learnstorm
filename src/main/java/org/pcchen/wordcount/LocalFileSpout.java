@@ -5,11 +5,9 @@ import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseRichSpout;
 import backtype.storm.tuple.Fields;
+import org.apache.commons.lang.StringUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,18 +18,16 @@ import java.util.Map;
  */
 public class LocalFileSpout extends BaseRichSpout{
     private SpoutOutputCollector spoutOutputCollector;
-    private List<Object> wordList = new ArrayList<Object>();
+    private BufferedReader br;
+//    private List<Object> wordList = new ArrayList<Object>();
 
     @Override
     public void open(Map map, TopologyContext topologyContext, SpoutOutputCollector spoutOutputCollector) {
         InputStreamReader inputStreamReader;
         try {
-            inputStreamReader = new InputStreamReader(new FileInputStream(new File("")));
-            BufferedReader br = new BufferedReader(inputStreamReader);
-            String line = br.readLine();
-
-            wordList.add(line);
             this.spoutOutputCollector = spoutOutputCollector;
+            inputStreamReader = new InputStreamReader(new FileInputStream(new File("F:\\change\\demo_data\\storm\\wordcount\\1.log")));
+            br = new BufferedReader(inputStreamReader);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +35,18 @@ public class LocalFileSpout extends BaseRichSpout{
 
     @Override
     public void nextTuple() {
-        spoutOutputCollector.emit(wordList);
+        try {
+            String line = br.readLine();
+            if(StringUtils.isNotBlank(line)) {
+                List<Object> wordList = new ArrayList<Object>();
+                wordList.add(line);
+
+                spoutOutputCollector.emit(wordList);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
