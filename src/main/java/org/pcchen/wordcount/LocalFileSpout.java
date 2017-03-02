@@ -26,7 +26,8 @@ public class LocalFileSpout extends BaseRichSpout{
         InputStreamReader inputStreamReader;
         try {
             this.spoutOutputCollector = spoutOutputCollector;
-            inputStreamReader = new InputStreamReader(new FileInputStream(new File("F:\\change\\demo_data\\storm\\wordcount\\1.log")));
+//            inputStreamReader = new InputStreamReader(new FileInputStream(new File("F:\\change\\data\\storm\\wordcount\\1.log")));
+            inputStreamReader = new InputStreamReader(new FileInputStream(new File("/root/test/storm/wordcount/1.log")));
             br = new BufferedReader(inputStreamReader);
         } catch (Exception e) {
             e.printStackTrace();

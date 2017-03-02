@@ -1,10 +1,12 @@
 package org.pcchen.wordcount;
 
+import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseBasicBolt;
 import backtype.storm.tuple.Tuple;
 import org.apache.commons.lang.StringUtils;
+import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +18,8 @@ import java.util.Map;
 public class WordCountAndPrintBolt extends BaseBasicBolt{
     private Map<String, String> wordCountMap = new HashMap<String, String>();
 
-    @Override
+
+//    @Override
     public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
         String word = (String)tuple.getValueByField("word");
         if(!StringUtils.isNotBlank(wordCountMap.get(word))) {
@@ -25,7 +28,8 @@ public class WordCountAndPrintBolt extends BaseBasicBolt{
             Integer count = Integer.parseInt(wordCountMap.get(word));
             wordCountMap.put(word, (count+1) +"");
         }
-        System.err.println(wordCountMap);
+//        System.err.println(wordCountMap);
+        JedisUtil.save("wordcount", wordCountMap);
     }
 
     /*//不知道为何此处不执行
@@ -37,7 +41,7 @@ public class WordCountAndPrintBolt extends BaseBasicBolt{
     /**
      * 因为不需要向下面bolt再传递，所以此处不需要实现
      */
-    @Override
+//    @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
 
     }
