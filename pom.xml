@@ -12,7 +12,7 @@
             <groupId>org.apache.storm</groupId>
             <artifactId>storm-core</artifactId>
             <!-- 表示程序所需jar由环境提供 -->
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
             <version>0.9.5</version>
         </dependency>
         <dependency>

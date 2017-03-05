@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.apache.storm:storm-kafka:0.9.5">
     <CLASSES>
-      <root url="jar://D:/company/.m2/repository_idea/org/apache/storm/storm-kafka/0.9.5/storm-kafka-0.9.5.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/storm/storm-kafka/0.9.5/storm-kafka-0.9.5.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/company/.m2/repository_idea/org/apache/storm/storm-kafka/0.9.5/storm-kafka-0.9.5-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/storm/storm-kafka/0.9.5/storm-kafka-0.9.5-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/company/.m2/repository_idea/org/apache/storm/storm-kafka/0.9.5/storm-kafka-0.9.5-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/storm/storm-kafka/0.9.5/storm-kafka-0.9.5-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
