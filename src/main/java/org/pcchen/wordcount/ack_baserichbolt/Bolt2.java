@@ -7,6 +7,7 @@ import backtype.storm.topology.base.BaseRichBolt;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
+import jdk.internal.util.xml.impl.Input;
 
 import java.util.Map;
 
@@ -24,7 +25,15 @@ public class Bolt2 extends BaseRichBolt {
     @Override
     public void execute(Tuple tuple) {
         String uuid = (String) tuple.getValue(0);
-        outputCollector.emit(new Values(uuid));
+        try {
+            int i = 1 / 0;
+            outputCollector.emit(tuple, new Values(uuid));
+            outputCollector.ack(tuple);
+        } catch (Exception e){
+            System.out.println(("除数不能为0"));
+            System.out.println("bolt2的异常");
+            outputCollector.fail(tuple);
+        }
     }
 
     @Override

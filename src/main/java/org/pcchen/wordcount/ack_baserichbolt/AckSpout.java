@@ -41,11 +41,12 @@ public class AckSpout extends BaseRichSpout{
 
     @Override
     public void ack(Object msgId) {
-
+        System.out.println("消息处理成功msgId：" + msgId);
     }
 
     @Override
     public void fail(Object msgId) {
-
+        spoutOutputCollector.emit(new Values(msgId), msgId);
+        System.out.println("消息处理失败msgId" + msgId);
     }
 }

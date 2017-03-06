@@ -25,8 +25,9 @@ public class Bolt3 extends BaseRichBolt {
     @Override
     public void execute(Tuple tuple) {
         String uuid = (String) tuple.getValue(0);
-        outputCollector.emit(new Values(uuid));
-        System.out.println(uuid);
+//        outputCollector.emit(new Values(uuid));
+        outputCollector.ack(tuple);
+        System.out.println("bolt3:" + uuid);
     }
 
     @Override
